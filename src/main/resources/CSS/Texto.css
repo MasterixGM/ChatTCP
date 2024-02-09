@@ -1,0 +1,12 @@
+.bordes {
+    -fx-border-radius: 0 65 65 65;
+    -fx-background-radius: 0 65 65 65;
+}
+.fondoTexto {
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.bordesVariación {
+    -fx-border-radius: 65 0 65 65;
+    -fx-background-radius: 65 0 65 65;
+}
