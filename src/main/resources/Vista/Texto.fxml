@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="90.0" prefWidth="410.0" styleClass="bordes" stylesheets="@../CSS/Texto.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorTexto">
+<AnchorPane prefHeight="75.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controlador.ControladorTexto">
    <children>
-      <HBox layoutY="-5.0" prefHeight="100.0" prefWidth="410.0">
+      <HBox alignment="CENTER" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField id="AreaTexto" alignment="TOP_LEFT" prefHeight="45.0" prefWidth="381.0" styleClass="fondoTexto" text="TEXTO EJEMPLO">
-               <HBox.margin>
-                  <Insets left="20.0" top="30.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <Circle id="ConfirmacionLectura" fill="#00ff004c" radius="7.0" stroke="BLACK" strokeType="INSIDE">
-               <HBox.margin>
-                  <Insets right="25.0" top="75.0" />
-               </HBox.margin>
-            </Circle>
-         </children></HBox>
+            <Label text="Label" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

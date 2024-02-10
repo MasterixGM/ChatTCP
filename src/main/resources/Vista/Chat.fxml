@@ -1,45 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorChat">
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorChat">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1024.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="2.0" layoutY="12.0" prefHeight="90.0" prefWidth="260.0" AnchorPane.bottomAnchor="935.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button layoutX="100.0" layoutY="10.0" maxHeight="95.0" maxWidth="70.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" text="+">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Pane>
-            <ScrollPane layoutX="30.0" layoutY="228.0" prefHeight="935.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+            <ScrollPane id="usuariosScrollPane" layoutX="30.0" layoutY="228.0" prefHeight="935.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="258.0" prefHeight="90.0" prefWidth="1180.0" AnchorPane.bottomAnchor="934.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text layoutX="85.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USUARIO" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="1000.0" AnchorPane.topAnchor="30.0">
+            <Text id="usuarioText" layoutX="85.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat Epico" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="1000.0" AnchorPane.topAnchor="30.0">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="256.0" layoutY="90.0" prefHeight="836.0" prefWidth="1180.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
       <ButtonBar layoutX="261.0" layoutY="942.0" prefHeight="100.0" prefWidth="1180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="924.0">
          <buttons>
-            <TextField prefHeight="80.0" prefWidth="1050.0" translateX="-20.0" />
-            <Button maxHeight="80.0" maxWidth="80.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" translateX="-15.0" />
+            <TextArea id="mensajeTextField" fx:id="mensajeTextField" prefHeight="80.0" prefWidth="1050.0" translateX="-20.0" />
+            <Button id="enviarButton" maxHeight="80.0" maxWidth="80.0" mnemonicParsing="false" onAction="#enviarMensaje" prefHeight="80.0" prefWidth="80.0" text="Enviar" translateX="-15.0" />
          </buttons>
       </ButtonBar>
+      <ScrollPane id="chatScrollPane" layoutX="260.0" layoutY="90.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+         <content>
+            <VBox id="chatBox" fx:id="chatBox" prefHeight="836.0" prefWidth="1180.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
