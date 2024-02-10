@@ -2,37 +2,77 @@ package Miscelaneos;
 
 import java.io.Serializable;
 
+/**
+ * Clase que representa un mensaje enviado entre usuarios.
+ */
 public class Mensaje implements Serializable {
-    private String message;
-    private Usuario usuario;
-    private TipoMensaje messageType;
+    private String mensaje; // El contenido del mensaje
+    private Usuario usuario; // El usuario que envía el mensaje
+    private TipoMensaje tipoMensaje; // El tipo de mensaje
 
-    public Mensaje(TipoMensaje messageType, Usuario usuario, String message) {
-        this.message = message;
+    /**
+     * Constructor de la clase Mensaje.
+     *
+     * @param tipoMensaje El tipo de mensaje.
+     * @param usuario     El usuario que envía el mensaje.
+     * @param mensaje     El contenido del mensaje.
+     */
+    public Mensaje(TipoMensaje tipoMensaje, Usuario usuario, String mensaje) {
+        this.mensaje = mensaje;
         this.usuario = usuario;
-        this.messageType = messageType;
+        this.tipoMensaje = tipoMensaje;
     }
 
+    /**
+     * Método getter para obtener el contenido del mensaje.
+     *
+     * @return El contenido del mensaje.
+     */
     public String getMensaje() {
-        return message;
+        return mensaje;
     }
 
-    public void setMensaje(String message) {
-        this.message = message;
+    /**
+     * Método setter para establecer el contenido del mensaje.
+     *
+     * @param mensaje El contenido del mensaje.
+     */
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
+    /**
+     * Método getter para obtener el tipo de mensaje.
+     *
+     * @return El tipo de mensaje.
+     */
     public TipoMensaje getTipoMensaje() {
-        return messageType;
+        return tipoMensaje;
     }
 
-    public void setTipoMensaje(TipoMensaje messageType) {
-        this.messageType = messageType;
+    /**
+     * Método setter para establecer el tipo de mensaje.
+     *
+     * @param tipoMensaje El tipo de mensaje.
+     */
+    public void setTipoMensaje(TipoMensaje tipoMensaje) {
+        this.tipoMensaje = tipoMensaje;
     }
 
+    /**
+     * Método getter para obtener el usuario que envía el mensaje.
+     *
+     * @return El usuario que envía el mensaje.
+     */
     public Usuario getUsuario() {
         return usuario;
     }
 
+    /**
+     * Método setter para establecer el usuario que envía el mensaje.
+     *
+     * @param usuario El usuario que envía el mensaje.
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }

@@ -9,9 +9,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
-public class Server {
+/**
+ * Clase que representa el servidor de la aplicación de mensajería.
+ */
+public class Servidor {
+    // HashMap para almacenar usuarios y sus ObjectOutputStream asociados
     private static final HashMap<Usuario, ObjectOutputStream> usuarios = new HashMap<>();
 
+    /**
+     * Método principal que inicia el servidor y gestiona las conexiones de los clientes.
+     *
+     * @param args Los argumentos de línea de comandos (no se utilizan en este caso).
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -19,6 +28,7 @@ public class Server {
         int port;
         int nUsuarios;
 
+        // Bucle para asegurar que se elija un puerto disponible
         while (true) {
             try {
                 System.out.println("Elige el numero de puerto deseado: ");
@@ -50,10 +60,10 @@ public class Server {
             }
         }
 
-        try (ServerSocket listener = new ServerSocket(port)) { //TODO: Si se meten mas usuarios de los establecidos la conexion palma muy hard
+        try (ServerSocket listener = new ServerSocket(port)) {
             int clientesConectados = 0;
             while (clientesConectados < nUsuarios) {
-                new Handler(listener.accept()).start();
+                new Handler(listener.accept()).start(); // Acepta conexiones entrantes y crea un nuevo hilo de manejo
                 clientesConectados++;
             }
         } catch (Exception e) {
@@ -61,23 +71,116 @@ public class Server {
         }
     }
 
+    /**
+     * Clase interna para manejar las conexiones de los clientes.
+     */
     private static class Handler extends Thread {
         private Socket socket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
 
+        // Constructor de Handler
         public Handler(Socket socket) {
             setSocket(socket);
             System.out.println("Cliente Conectado");
             try {
                 setIn(socket);
                 setOut(socket);
-                System.out.println("Streams Creados");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
+        // Método principal del hilo de manejo
+        @Override
+        public void run() {
+            boolean isLogged;
+            try {
+                // Bucle para el proceso de inicio de sesión
+                do {
+                    isLogged = login();
+                } while (!isLogged);
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            // Bucle para manejar la comunicación con el cliente
+            while (socket.isConnected()) {
+                try {
+                    Mensaje mensaje = (Mensaje) in.readObject();
+                    procesoOutputCliente(mensaje);
+                } catch (IOException | ClassNotFoundException e) {
+                    cerrar();
+                    e.fillInStackTrace();
+                    break;
+                }
+            }
+        }
+
+        // Proceso de salida para el cliente
+        private void procesoOutputCliente(Mensaje mensaje) throws IOException {
+            switch (mensaje.getTipoMensaje()) {
+                case MENSAJE:
+                    procesoMensaje(mensaje);
+                    break;
+                case DESCONECTADO:
+                    procesoDesconectar(mensaje);
+                    break;
+            }
+        }
+
+        // Proceso para desconectar al cliente
+        private void procesoDesconectar(Mensaje message) throws IOException {
+            Usuario usuario = message.getUsuario();
+            Servidor.usuarios.remove(usuario);
+            out.writeObject(message);
+            out.flush();
+            cerrar();
+        }
+
+        // Proceso para enviar mensaje a todos los usuarios conectados
+        private void procesoMensaje(Mensaje message) throws IOException {
+            for (ObjectOutputStream out : Servidor.usuarios.values()) {
+                out.writeObject(message);
+                out.flush();
+            }
+        }
+
+        // Método para el proceso de inicio de sesión
+        private boolean login() throws IOException, ClassNotFoundException {
+            Usuario usuario = (Usuario) in.readObject();
+            if (Servidor.usuarios.containsKey(usuario)) {
+                this.out.writeBoolean(false);
+                this.out.flush();
+                return false;
+            } else {
+                Servidor.usuarios.put(usuario, out);
+                System.out.println(usuario.getUsername() + " añadido");
+                this.out.writeBoolean(true);
+                this.out.flush();
+                return true;
+            }
+        }
+
+        // Método para cerrar los streams y el socket
+        public void cerrar() {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Getters y Setters
         public Socket getSocket() {
             return socket;
         }
@@ -100,87 +203,6 @@ public class Server {
 
         public void setOut(Socket out) throws IOException {
             this.out = new ObjectOutputStream(this.socket.getOutputStream());
-        }
-
-        public void run() {
-            boolean isLogged;
-            try {
-                do {
-                    isLogged = login();
-                } while (!isLogged);
-
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-
-            while (socket.isConnected()) {
-                try {
-                    Mensaje mensaje = (Mensaje) in.readObject();
-                    processClientOutput(mensaje);
-                } catch (IOException | ClassNotFoundException e) {
-                    close();
-                    //e.printStackTrace();
-                    break;
-                }
-            }
-        }
-
-        private void processClientOutput(Mensaje mensaje) throws IOException {
-            switch (mensaje.getTipoMensaje()) {
-                case MESSAGE:
-                    processMessage(mensaje);
-                    break;
-                case DISCONNECT:
-                    processDisconnect(mensaje);
-                    break;
-            }
-        }
-
-        private void processDisconnect(Mensaje message) throws IOException {
-            Usuario usuario = message.getUsuario();
-            Server.usuarios.remove(usuario);
-            out.writeObject(message);
-            out.flush();
-            close();
-        }
-
-        private void processMessage(Mensaje message) throws IOException {
-            for (ObjectOutputStream out : Server.usuarios.values()) {
-                out.writeObject(message);
-                out.flush();
-            }
-        }
-
-        private boolean login() throws IOException, ClassNotFoundException {
-            Usuario usuario = (Usuario) in.readObject();
-            if (Server.usuarios.containsKey(usuario)) {
-                this.out.writeBoolean(false);
-                this.out.flush();
-                return false;
-            } else {
-                Server.usuarios.put(usuario, out);
-                System.out.println(usuario.getUsername() + " añadido");
-                this.out.writeBoolean(true);
-                this.out.flush();
-                return true;
-            }
-        }
-
-        public void close() {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-                if (socket != null) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }
