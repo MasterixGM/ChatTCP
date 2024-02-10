@@ -185,8 +185,16 @@ public class Cliente {
      */
     public void processServerInput(Mensaje mensaje) {
         switch (mensaje.getTipoMensaje()){
-            case MENSAJE -> processMensaje(mensaje);
-            case DESCONECTADO -> processDisconnect(mensaje);
+            case MENSAJE:
+                processMensaje(mensaje);
+                break;
+
+            case DESCONECTADO:
+                processDisconnect(mensaje);
+                break;
+
+            default:
+                break;
         }
     }
 

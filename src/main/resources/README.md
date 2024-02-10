@@ -94,10 +94,4 @@ A su vez implementa serializable lo cual permite que los objetos de esta clase s
 
 ## Instalacion
 
-Tengo el proyecto compilado en dos archivos java para ejecutarlo primero ejecutar
-
-Servidor.java
-
-y despues ejecutar el archivo java
-
-Main.java
+Se ejecuta localmente primero ejecutando Servidor.java y después RunApp.java
