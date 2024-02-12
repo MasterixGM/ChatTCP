@@ -46,22 +46,22 @@ En esta aplicacion tenemos tres controladores los cuales se encargan de gestiona
     parte grafica
 
 
-    - enviarMensaje se llama cuando el usuario presiona el boton de enviar mensaje, crea un objeto mensaje y lo envia al servidor a traves del cliente
+        - enviarMensaje se llama cuando el usuario presiona el boton de enviar mensaje, crea un objeto mensaje y lo envia al servidor a traves del cliente
 
-    - procesarMensaje se llama cuando se recibe un mensaje del servidor y agrega entonces el mensaje al chatBox (VBox) para mostrarlo por pantalla
+        - procesarMensaje se llama cuando se recibe un mensaje del servidor y agrega entonces el mensaje al chatBox (VBox) para mostrarlo por pantalla
 
 - ControladorLogin
 
     Esta clase contiene metodos para poder manejar la entrada de los usuarios a la aplicacion mediante parte grafica
 
 
-    - inicioSesion se llama cuando el usuario intenta iniciar sesion, procesa la entrada del mismo y cambia la ventada a la del chat en caso de que sea exitosa la conexion.
+        - inicioSesion se llama cuando el usuario intenta iniciar sesion, procesa la entrada del mismo y cambia la ventada a la del chat en caso de que sea exitosa la conexion.
 
-    - pasoVentanaChat se usa para cambiar a la ventana del chat despues de iniciar sesion correctamente
+        - pasoVentanaChat se usa para cambiar a la ventana del chat despues de iniciar sesion correctamente
 
-    - pasoUsuario se usa para obtener los datos del usuario y crear una instancia del cliente para la conexion al servidor
+        - pasoUsuario se usa para obtener los datos del usuario y crear una instancia del cliente para la conexion al servidor
 
-    - login realiza el proceso de inicio de sesion enviando el objeto Usuario al servidor y esperando una respuesta
+        - login realiza el proceso de inicio de sesion enviando el objeto Usuario al servidor y esperando una respuesta
 
 - ControladorTexto
 
@@ -75,11 +75,11 @@ En esta aplicacion tenemos tres controladores los cuales se encargan de gestiona
     Esta clase es la definicion del objeto mensaje contiene:
 
 
-    - String Mensaje
+        - String Mensaje
 
-    - Usuario
+        - Usuario
 
-    - Tipo de mensaje
+        - Tipo de mensaje
 
 A su vez implementa serializable lo cual permite que los objetos de esta clase se puedan serializar para enviarse por red.
 
