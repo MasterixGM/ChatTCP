@@ -131,18 +131,18 @@ public class Servidor {
         }
 
         // Proceso para desconectar al cliente
-        private void procesoDesconectar(Mensaje message) throws IOException {
-            Usuario usuario = message.getUsuario();
-            Servidor.usuarios.remove(usuario);
-            out.writeObject(message);
+        private void procesoDesconectar(Mensaje mensaje) throws IOException {
+            Usuario usuario = mensaje.getUsuario();
+            usuarios.remove(usuario);
+            out.writeObject(mensaje);
             out.flush();
             cerrar();
         }
 
         // Proceso para enviar mensaje a todos los usuarios conectados
-        private void procesoMensaje(Mensaje message) throws IOException {
+        private void procesoMensaje(Mensaje mensaje) throws IOException {
             for (ObjectOutputStream out : Servidor.usuarios.values()) {
-                out.writeObject(message);
+                out.writeObject(mensaje);
                 out.flush();
             }
         }
@@ -150,12 +150,12 @@ public class Servidor {
         // Método para el proceso de inicio de sesión
         private boolean login() throws IOException, ClassNotFoundException {
             Usuario usuario = (Usuario) in.readObject();
-            if (Servidor.usuarios.containsKey(usuario)) {
+            if (usuarios.containsKey(usuario)) {
                 this.out.writeBoolean(false);
                 this.out.flush();
                 return false;
             } else {
-                Servidor.usuarios.put(usuario, out);
+                usuarios.put(usuario, out);
                 System.out.println(usuario.getUsername() + " añadido");
                 this.out.writeBoolean(true);
                 this.out.flush();

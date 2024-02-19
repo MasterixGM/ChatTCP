@@ -28,7 +28,7 @@ public class Cliente {
      *
      * @param socket  El socket para la conexión al servidor.
      * @param usuario El usuario del cliente.
-     * @throws IOException Si ocurre un error de entrada/salida durante la creación de los flujos.
+     * @throws IOException Sí ocurre un error de entrada/salida durante la creación de los flujos.
      */
     public Cliente(Socket socket, Usuario usuario) throws IOException {
         setSocket(socket);
@@ -88,7 +88,7 @@ public class Cliente {
      * Establece el flujo de entrada del cliente utilizando el socket proporcionado.
      *
      * @param socket El socket del cliente.
-     * @throws IOException Si ocurre un error de entrada/salida durante la creación del flujo de entrada.
+     * @throws IOException Sí ocurre un error de entrada/salida durante la creación del flujo de entrada.
      */
     public void setIn(Socket socket) throws IOException {
         this.in = new ObjectInputStream(socket.getInputStream());
@@ -107,7 +107,7 @@ public class Cliente {
      * Establece el flujo de salida del cliente utilizando el socket proporcionado.
      *
      * @param socket El socket del cliente.
-     * @throws IOException Si ocurre un error de entrada/salida durante la creación del flujo de salida.
+     * @throws IOException Sí ocurre un error de entrada/salida durante la creación del flujo de salida.
      */
     public void setOut(Socket socket) throws IOException {
         this.out = new ObjectOutputStream(socket.getOutputStream());
@@ -119,7 +119,7 @@ public class Cliente {
      * Envía un mensaje al servidor.
      *
      * @param mensaje El mensaje a enviar.
-     * @throws IOException Si ocurre un error de entrada/salida durante el envío del mensaje.
+     * @throws IOException Sí ocurre un error de entrada/salida durante el envío del mensaje.
      */
     public void mandarMensaje(Mensaje mensaje) throws IOException {
         this.out.writeObject(mensaje);
@@ -147,7 +147,7 @@ public class Cliente {
     /**
      * Detiene el escuchador del cliente y envía un mensaje de desconexión al servidor.
      *
-     * @throws IOException Si ocurre un error de entrada/salida durante el envío del mensaje de desconexión.
+     * @throws IOException Sí ocurre un error de entrada/salida durante el envío del mensaje de desconexión.
      */
     public void stopListener() throws IOException {
         Mensaje mensaje = new Mensaje(TipoMensaje.DESCONECTADO, usuario, null);
@@ -212,15 +212,15 @@ public class Cliente {
         }
     }
 
-    // Clase interna para el escuchador del cliente
+    // Clase interna para el Listener del cliente
 
     /**
      * La clase Listener representa un hilo que escucha los mensajes entrantes del servidor.
      */
     public static class Listener extends Thread{
         // Atributos
-        private final Cliente cliente; // El cliente al que pertenece este escuchador
-        private boolean estaCerrado; // Indica si el escuchador está cerrado o no
+        private final Cliente cliente; // El cliente al que pertenece este Listener
+        private boolean estaCerrado; // Indica si el Listener está cerrado o no
 
         // Constructor
 
@@ -248,7 +248,6 @@ public class Cliente {
                     cliente.processServerInput(mensaje);
                 } catch (IOException | ClassNotFoundException e) {
                     estaCerrado = true;
-                    //e.printStackTrace();
                 }
             }
         }
