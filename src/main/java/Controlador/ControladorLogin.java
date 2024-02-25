@@ -108,6 +108,7 @@ public class ControladorLogin {
         controladorChat.setCliente(cliente);
         stagePrincipal.setScene(scene);
         stagePrincipal.show();
+        stagePrincipal.centerOnScreen(); // Centra en la pantalla
     }
 
     /**

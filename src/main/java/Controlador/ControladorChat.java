@@ -6,10 +6,15 @@ import Modelo.RunApp;
 import Modelo.Cliente;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -17,6 +22,13 @@ import java.io.IOException;
  * El ControladorChat gestiona la interfaz de usuario del chat y la interacción con el cliente.
  */
 public class ControladorChat {
+    public Text nombreUserText; // Campo para cambiar en nombre del usuario al que se este escribiendo
+    public Text estadoUserText; // Campo para cambiar el ESTADO del usuario al que se este escribiendo (Enum Preferible Online, Offline)
+    public Button enviarButton; // Boton de Envio de mensaje
+    public Button salirButton; // Boton de Menu lateral para "Salir de la app" (Te manda de vuelta al login tontito)
+    public ScrollPane usersScrollPane; // ScrollPane para Usuarios
+    public VBox usersBox; // Vbox para los Usuarios
+    //TODO: Los Añadidos arriba se deben implementar he dejado por el FXML en caso de implementaciones futuras opciones como opcionesButton entre otros.
     private Cliente cliente; // El cliente asociado a este controlador
     private static ControladorChat controlador; // Instancia estática del controlador
 
@@ -27,7 +39,7 @@ public class ControladorChat {
     private ScrollPane chatScrollPane; // ScrollPane para mostrar los mensajes
 
     @FXML
-    private TextArea mensajeTextField; // Campo de texto para ingresar mensajes
+    private TextArea mensajeTextArea; // Campo de texto para ingresar mensajes
 
     // Constructor
 
@@ -74,6 +86,17 @@ public class ControladorChat {
             cliente.close();
             Platform.exit();
         });
+
+        mensajeTextArea.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {// Agregado para evitar saltos de linea al pulsar enter.
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    enviarMensaje();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                ke.consume(); // Consumir el evento para evitar el comportamiento predeterminado del TextArea
+            }
+        });
     }
 
     // Métodos de interacción con el servidor
@@ -84,13 +107,25 @@ public class ControladorChat {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void enviarMensaje() throws IOException {
-        String msg = mensajeTextField.getText();
-        if (!mensajeTextField.getText().trim().isEmpty()) {
+        String msg = mensajeTextArea.getText();
+        if (!mensajeTextArea.getText().trim().isEmpty()) {
             Mensaje mensaje = new Mensaje(TipoMensaje.MENSAJE, cliente.getUsuario(), msg);
             cliente.mandarMensaje(mensaje);
-            mensajeTextField.clear();
+            mensajeTextArea.clear();
         }
     }
+
+    /**
+     * Envía un mensaje al servidor cuando pulsas ENTER.
+     *
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
+    public void enviarMensajeTeclado(KeyEvent event) throws IOException { //TODO: Esta linkeado al FXML pero al darle al enter me da la joda y se hace un salto de linea
+        if (event.getCode() == KeyCode.ENTER) {
+            enviarMensaje();
+        }
+    }
+
 
     /**
      * Procesa un mensaje recibido del servidor.
