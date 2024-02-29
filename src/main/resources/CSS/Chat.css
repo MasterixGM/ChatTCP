@@ -1,0 +1,26 @@
+.colorFondo {
+    -fx-background-color: rgba(255,255,255);
+}
+.textoChat {
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-font-size: 18px;
+}
+.colorFondoChat {
+    -fx-background-color: rgba(250,250,250);
+}
+.colorBoton {
+    -fx-background-color: rgba(255,255,255,0);
+    -fx-border-width: 2px;
+}
+.barraChat {
+    -fx-border-radius: 50 50 50 50;
+    -fx-background-radius: 50 50 50 50;
+}
+.barraBusqueda {
+    -fx-background-color: rgba(238,238,238);
+    -fx-border-radius: 50 50 50 50;
+    -fx-background-radius: 50 50 50 50;
+}
+.estadoOnline {
+    -fx-text-fill: rgba(39,174,96);
+}

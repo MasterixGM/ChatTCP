@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"org.example.chattcp","l":"org.infantalena.ies.Controlador"},{"m":"org.example.chattcp","l":"org.infantalena.ies.Miscelaneos"},{"m":"org.example.chattcp","l":"org.infantalena.ies.Modelo"}]

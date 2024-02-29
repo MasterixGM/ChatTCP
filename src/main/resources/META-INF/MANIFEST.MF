@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+org.infantaelena.ies.Main-Class: Logica.org.infantaelena.ies.RunApp
+
