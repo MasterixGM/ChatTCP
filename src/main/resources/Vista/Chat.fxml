@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1112.0" stylesheets="@../CSS/Chat.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.infantaelena.ies.Controlador.ControladorChat">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1112.0" stylesheets="@../CSS/Chat.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.infantaelena.ies.Controlador.ControladorChat">
    <children>
       <AnchorPane prefHeight="690.0" prefWidth="1112.0">
          <children>
@@ -65,9 +55,9 @@
                               </Button>
                            </children>
                         </HBox>
-                        <ScrollPane fx:id="chatScrollPane" prefHeight="581.0">
+                        <ScrollPane fx:id="chatScrollPane" prefHeight="581.0" prefWidth="700.0">
                            <content>
-                              <VBox fx:id="chatBox" prefHeight="579.0" prefWidth="719.0" styleClass="colorFondoChat" />
+                              <VBox fx:id="chatBox" prefHeight="579.0" prefWidth="700.0" styleClass="colorFondoChat" />
                            </content>
                         </ScrollPane>
                         <HBox fx:id="barraChat" prefHeight="48.0" prefWidth="720.0">

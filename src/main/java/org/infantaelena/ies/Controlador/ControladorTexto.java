@@ -1,5 +1,17 @@
 package org.infantaelena.ies.Controlador;
 
-    public class ControladorTexto {
-        //org.infantalena.ies.Controlador Dispuesto para su uso en los mensajes y posibilidad de uso para agregar funcionalidades como filtrado de palabras o pasar a Minusculas, Mayusculas...
+import javafx.scene.control.Label;
+
+public class ControladorTexto {
+
+    public Label labelCliente;
+    public Label labelMensaje;
+
+    public void setNombreCliente(String nombreCliente){
+        labelCliente.setText(nombreCliente.toUpperCase());
+    }
+
+    public void setMensaje(String mensaje){
+        labelMensaje.setText(mensaje.trim());
+    }
 }

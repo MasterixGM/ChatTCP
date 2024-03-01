@@ -1,7 +1,13 @@
-.fondoTexto {
-    -fx-background-color: rgba(0,0,0,0);
+.todo{
+    -fx-background-radius: 10;
+    -fx-background-color: #3ca7ff;
+    -fx-wrap-text: true;
+
 }
+
+
 
 .texto {
     -fx-font-size: 18px;
+    -fx-text-field: #ffffff;
 }

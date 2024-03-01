@@ -21,7 +21,7 @@
          <Insets right="120.0" />
       </VBox.margin>
    </Text>
-   <TextField fx:id="campoContrasena" promptText="Usuario" />
+   <TextField fx:id="campoContrasena" promptText="Contraseña" />
    <Text boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="IP" textOrigin="CENTER">
       <VBox.margin>
          <Insets right="163.0" />

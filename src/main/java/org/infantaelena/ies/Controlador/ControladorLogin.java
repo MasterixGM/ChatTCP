@@ -113,6 +113,7 @@ public class ControladorLogin {
 
         ControladorChat controladorChat = loader.getController();
         controladorChat.setCliente(cliente);
+        controladorChat.setNombreUserText(cliente.getUsuario().getUsername());
         stagePrincipal.setScene(scene);
         stagePrincipal.show();
         stagePrincipal.centerOnScreen(); // Centra en la pantalla
@@ -133,8 +134,9 @@ public class ControladorLogin {
         String servidor = campoServidor.getText();
         if (nombreUsuario.isEmpty()){
             throw new InvalidParameterException();
-        }
-        else if(!UserCSV.authenticate(nombreUsuario, contrasena)){
+        } else if (contrasena.isEmpty()) {
+            mostrarAlerta("Contraseña invalida", "La contraseña no puede estar vacía.");
+        } else if(!UserCSV.authenticate(nombreUsuario, contrasena)){
             //Si no se ha podido autenticar, pero existe el usuario, creará el usuario y lo registrará.
             if(UserCSV.userExists(nombreUsuario)){
                 mostrarAlerta("Error de inicio de sesión" , "La contraseña introducida no es válida.");

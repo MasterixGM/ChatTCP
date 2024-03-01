@@ -2,18 +2,21 @@ package org.infantaelena.ies.Controlador;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.infantaelena.ies.Entidades.Mensaje;
 import org.infantaelena.ies.Entidades.TipoMensaje;
 import org.infantaelena.ies.Logica.Cliente;
 import org.infantaelena.ies.Logica.RunApp;
+import org.infantaelena.ies.Main;
 
 import java.io.IOException;
 
@@ -71,6 +74,12 @@ public class ControladorChat {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public void setNombreUserText (String nombreUsuario){
+        nombreUserText.setText(nombreUsuario);
+    }
+
+
 
     // Método de inicialización
 
@@ -132,10 +141,21 @@ public class ControladorChat {
      * @param mensaje El mensaje recibido del servidor.
      */
     public void procesarMensaje(Mensaje mensaje){
+        String nombreUsuario = mensaje.getUsuario().getUsername();
+        String textoMensaje = mensaje.getMensaje();
+        FXMLLoader textoLayout = new FXMLLoader(Main.class.getResource("/Vista/Texto.fxml"));
+        try {
+            AnchorPane root =  textoLayout.load();
+            ControladorTexto controlador = textoLayout.getController();
+            controlador.setNombreCliente(nombreUsuario);
+            controlador.setMensaje(textoMensaje);
         Platform.runLater(() -> {
-            Label labelMensaje = new Label(mensaje.getUsuario().getUsername() + ": " + mensaje.getMensaje());
-            chatBox.getChildren().add(labelMensaje);
+            chatBox.getChildren().add(root);
+            chatBox.getChildren().add(new Label("\n"));
         });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
